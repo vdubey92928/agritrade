@@ -1,17 +1,17 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-function Contact(){
+function FarmerRegistration(){
+      
     return(
       <React.Fragment>
         <Header />
-        <h1>Contact page</h1>
-        <p>This is Contact page
-            
-        </p>
+        <h1>This is farmer Registration page</h1>
         <Footer/>
       </React.Fragment>
 
     );
 }
-export default Contact;
+
+
+export default FarmerRegistration;

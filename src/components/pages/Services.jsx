@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-function Contact(){
+function Services(){
     return(
       <React.Fragment>
         <Header />
-        <h1>Contact page</h1>
-        <p>This is Contact page
+        <h1>Services page</h1>
+        <p>This is Service page
             
         </p>
         <Footer/>
@@ -14,4 +14,4 @@ function Contact(){
 
     );
 }
-export default Contact;
+export default Services;

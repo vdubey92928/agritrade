@@ -1,17 +1,17 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-function Contact(){
+function TempLogin(){
+      
     return(
       <React.Fragment>
         <Header />
-        <h1>Contact page</h1>
-        <p>This is Contact page
-            
-        </p>
+        <h1>for now you can use this as login page</h1>
         <Footer/>
       </React.Fragment>
 
     );
 }
-export default Contact;
+
+
+export default TempLogin;

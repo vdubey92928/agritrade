@@ -1,17 +1,18 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-function Contact(){
+function MerchantRegistration(){
+      
     return(
       <React.Fragment>
         <Header />
-        <h1>Contact page</h1>
-        <p>This is Contact page
-            
-        </p>
+        <h1>Merchant Registration page</h1>
+       
         <Footer/>
       </React.Fragment>
 
     );
 }
-export default Contact;
+
+
+export default MerchantRegistration;
