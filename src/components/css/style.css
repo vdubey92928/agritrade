@@ -99,7 +99,7 @@ body{
 }
 #logo-box{
   height: 60px;
-  width: 120px;
+  width: auto;
 }
 #logo{
   height: 100%;
