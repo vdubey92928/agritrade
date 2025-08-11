@@ -1,23 +1,8 @@
-// import React from "react";
-// import Header from "../layout/Header";
-// import Footer from "../layout/Footer";
-// function MerchantRegistration(){
-      
-//     return(
-//       <React.Fragment>
-//         <Header />
-//         <h1>Merchant Registration page</h1>
-       
-//         <Footer/>
-//       </React.Fragment>
 
-//     );
-// }
-
-
-// export default MerchantRegistration;
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from '../layout/Header';
+import Footer from '../layout/Footer';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MerchantRegistration = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +39,9 @@ const MerchantRegistration = () => {
   };
 
   return (
-    <div className="container-fluid py-4" style={{ 
+    <React.Fragment>
+      <Header/>
+      <div className="container-fluid py-4" style={{ 
       backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
       backgroundSize: 'cover',
       minHeight: '100vh',
@@ -377,6 +364,8 @@ const MerchantRegistration = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </React.Fragment>
   );
 };
 

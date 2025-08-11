@@ -8,7 +8,8 @@ import Services from "./components/pages/Services";
 import {Routes, Route } from "react-router-dom";
 import FarmerRegistration from "./components/pages/FarmerRegistration";
 import MerchantRegistartion from "./components/pages/MerchantRegistration";
-import TempLogin from "./components/pages/TempLogin";
+import Register from "./components/pages/Register";
+
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/templogin" element={<TempLogin />} />
-        <Route path="/login/farmerreg" element={<FarmerRegistration />} />
-        <Route path="/login/merchantreg" element={<MerchantRegistartion />} />
+        <Route path="/register" element={<Register />} />
+        
+        <Route path="/farmerreg" element={<FarmerRegistration />} />
+        <Route path="/merchantreg" element={<MerchantRegistartion />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />

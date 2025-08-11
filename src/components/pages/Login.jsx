@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import agritradeLogo from '../../assets/images/AgriTradeLogo.png';
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 
-
-const LoginPage = () => {
+const Login = () => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -80,7 +81,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container-fluid py-5" style={{
+    <React.Fragment>
+      <Header/>
+      <div className="container-fluid py-5" style={{
       backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
       backgroundSize: 'cover',
       minHeight: '100vh',
@@ -232,7 +235,9 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </React.Fragment>
   );
 };
 
-export default LoginPage;
+export default Login;
