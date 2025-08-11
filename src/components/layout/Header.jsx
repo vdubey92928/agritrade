@@ -10,10 +10,10 @@ function Header() {
 
   return (
     <React.Fragment>
-      <nav className="navbar navbar-light bg-light shadow-sm" id="navbar">
+      <nav className="navbar navbar-light bg-light shadow-sm " height="250px" id="navbar">
         <div className="container d-flex justify-content-between align-items-center">
           <NavLink to="/" className="navbar-brand fw-bold" id="logo-box">
-            <img id="logo" src={logo} alt="" />
+            <img id="logo" src={logo} className="h-100 w-auto" alt="" />
           </NavLink>
 
           <button
