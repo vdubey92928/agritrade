@@ -47,7 +47,7 @@ function Header() {
                 </NavLink>
               </li>
             </ul>
-             <NavLink className="btn btn-primary ms-3" id="btn" to="/login">login/ Register</NavLink>
+             <NavLink className="btn btn-primary ms-3" id="btn" to="/login">Login / Register</NavLink>
           </div>
         </div>
       </nav>
