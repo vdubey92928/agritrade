@@ -1,8 +1,20 @@
+// import React from "react";
+// import Header from "../layout/Header";
+// import Footer from "../layout/Footer";
+// function FarmerRegistration(){
+      
+//     return(
+//       <React.Fragment>
+//         <Header />
+//         <h1>This is farmer Registration page</h1>
+//         <Footer/>
+//       </React.Fragment>
 
-import React, { useState} from 'react';
-
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
+//     );
+// }
+//export default FarmerRegistration;
+import React, { useState, useRef } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FarmerRegistration = () => {
     const [formData, setFormData] = useState({
@@ -37,7 +49,7 @@ const FarmerRegistration = () => {
     const [backgroundImage, setBackgroundImage] = useState(
         'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")'
     );
-    // const fileInputRef = useRef(null);
+    const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -68,8 +80,6 @@ const FarmerRegistration = () => {
     };
 
     return (
-        <React.Fragment>
-            <Header/>
         <div className="container-fluid py-5" style={{
             backgroundImage: backgroundImage,
             backgroundSize: 'cover',
@@ -504,8 +514,6 @@ const FarmerRegistration = () => {
                 </div>
             </div>
         </div>
-        <Footer/>
-        </React.Fragment>
     );
 };
 
