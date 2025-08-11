@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer"
-import "../css/style.css"; // custom styles
+import "../css/home.css"; // custom styles
 
 export default function Home() {
   return (
