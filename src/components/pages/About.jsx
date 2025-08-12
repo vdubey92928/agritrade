@@ -1,13 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "./css/AboutUs.css"; // Updated CSS file name
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
 
 const AboutUs = () => {
   return (
     <React.Fragment>
-      <Header />
+    
       <div className="agri-container">
         {/* Hero Section */}
         <motion.section
@@ -98,7 +96,7 @@ const AboutUs = () => {
           </p>
         </motion.section>
       </div>
-      <Footer />
+      
     </React.Fragment>
   );
 };

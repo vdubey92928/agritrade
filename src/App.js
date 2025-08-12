@@ -9,11 +9,13 @@ import {Routes, Route } from "react-router-dom";
 import FarmerRegistration from "./components/pages/FarmerRegistration";
 import MerchantRegistartion from "./components/pages/MerchantRegistration";
 import Register from "./components/pages/Register";
-
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
     <React.Fragment>
+      <Header/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -26,7 +28,7 @@ function App() {
         <Route path="/services" element={<Services />} />
       </Routes>
 
-      
+      <Footer/>
     </React.Fragment>
   );
 }

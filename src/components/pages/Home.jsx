@@ -1,13 +1,11 @@
 import React from "react";
-import Header from "../layout/Header";
-import Footer from "../layout/Footer"
 import "../css/style.css"; // custom styles
 
 export default function Home() {
   return (
   
     <div className="container-fluid index-section mt-4">
-       <Header/>
+      
       {/* revolution section */}
       <div className="container">
                 <div className="row mt-5">
@@ -120,7 +118,7 @@ export default function Home() {
             </div>
        
           </div>
-       <Footer/>
+       
     </div>
   );
 }

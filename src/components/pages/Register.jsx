@@ -1,11 +1,9 @@
 import React from "react";
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
 function Register(){
     return (
 
         <React.Fragment>
-            <Header/>
+            
             <div className="container for-section m-5">
                 <div className="row mt-5 m-auto">
                     <div className="col-sm-1"></div>
@@ -20,7 +18,7 @@ function Register(){
                 </div>
        
           </div>
-          <Footer/>
+         
         </React.Fragment>
 
     );

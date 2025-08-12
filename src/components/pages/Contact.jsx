@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './css/ContactPage.css';
 import agritradeLogo from '../../assets/images/AgriTradeLogo.png';
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
 
 
 const ContactPage = () => {
@@ -47,7 +45,7 @@ const ContactPage = () => {
 
   return (
     <React.Fragment>
-      <Header/>
+    
       <div className="contact-container">
       <div className="contact-header">
         <img src={agritradeLogo} alt="AgriTrade Logo" className="logo" />
@@ -147,7 +145,7 @@ const ContactPage = () => {
         </div>
       </div>
     </div>
-    <Footer/>
+
     </React.Fragment>
   );
 };
