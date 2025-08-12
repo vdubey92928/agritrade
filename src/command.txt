@@ -1,0 +1,43 @@
+d
+:
+cd/
+mkdir sampe
+cd sampe
+cls
+dir
+cls
+git clone https://github.com/vdubey92928/agritrade.git
+dir
+cls
+git branch
+cd agritrade
+git branch
+git branch --all
+git remote -v
+git fetch --all
+git branch
+git branch --all
+git pull awnish-dev
+git pull origin/awnish-dev
+git pull origin awnish-dev
+git branch
+git branch --all
+git checkout awnish-dev
+git branch
+dir
+cd src
+echo function App(){} > test.jsx
+type test.jsx
+echo export default App; >> test.jsx
+type test.jsx
+cls
+git status
+git add .
+git status
+cls
+git commit -m "test.jsx added"
+git push origin awnish-dev
+cls
+git log
+cls
+doskey /history
