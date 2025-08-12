@@ -7,7 +7,7 @@ function Register(){
             <div className="container for-section m-5">
                 <div className="row mt-5 m-auto">
                     <div className="col-sm-1"></div>
-                    <div className="col-sm-4 h-100">
+                    <div className="col-sm-4 h-100 text-light">
                         <a href="/farmerreg"><button>Farmer Registration</button></a>
                     </div>
                     <div className="col-sm-2"></div>

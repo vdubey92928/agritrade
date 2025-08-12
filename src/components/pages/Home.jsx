@@ -3,7 +3,7 @@ import "../css/style.css"; // custom styles
 
 export default function Home() {
   return (
-  
+    <React.Fragment>
     <div className="container-fluid index-section mt-4">
       
       {/* revolution section */}
@@ -120,5 +120,6 @@ export default function Home() {
           </div>
        
     </div>
+    </React.Fragment>
   );
 }

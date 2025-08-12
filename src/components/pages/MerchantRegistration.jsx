@@ -1,368 +1,256 @@
-
-import React, { useState } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React, { useState, useRef, useEffect } from "react"; // , useRef
+import { NavLink } from "react-router-dom";
+import { userApiService } from "../../api/userApi";
 const MerchantRegistration = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    fatherName: '',
-    motherName: '',
-    dob: '',
-    mobile: '',
-    email: '',
-    gstNumber: '',
-    companyName: '',
-    businessType: 'wholesaler',
-    businessAddress: '',
-    businessState: '',
-    businessDistrict: '',
-    businessPostalCode: '',
-    agreeTerms: false
+  const inputFirstNameRef = useRef(null);
+  const inputLastNameRef = useRef(null);
+  const inputEmailRef = useRef(null);
+  const inputCompanyRef = useRef(null);
+  const inputCompanyTypeRef = useRef(null);
+  const inputRegistrationNoRef = useRef(null);
+  const inputPasswordRef = useRef(null);
+  const inputMobileRef = useRef(null);
+  const checkBoxTermsRef = useRef(null);
+  const btnSubmitRef = useRef(null);
+
+  //Error
+  const errorFnameRef = useRef(null);
+  const errorlnameRef = useRef(null);
+  const errorEmailRef = useRef(null);
+  const errorCompnayRef = useRef(null);
+  const errorRegistartionNoRef = useRef(null);
+  const errorCompanyTypeRef = useRef(null);
+  const errorMobileRef = useRef(null);  
+  const errorPasswordRef = useRef(null);
+
+  const [isError, setError] = useState({
+    firstName: true,
+    lastName: true,
+    email: true,
+    mobile: true,
+    password: true,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
+  //constructor : by default
+  useEffect(() => {
+    checkBoxTermsRef.current.checked = false;
+    btnSubmitRef.current.disabled = false;
+  }, []);
 
-  const handleSubmit = (e) => {
+  console.log("isError", isError);
+
+  function handleSubmit(e) {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add form submission logic here
-  };
+
+    //firstname
+    if (inputFirstNameRef.current.value.trim() === "") {
+      errorFnameRef.current.textContent = "First Name is Required";
+      errorFnameRef.current.style.color = "red";
+      inputFirstNameRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, firstName: true };
+      });
+    } else {
+      errorFnameRef.current.textContent = "";
+      errorFnameRef.current.style.color = "";
+      inputFirstNameRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, firstName: false };
+      });
+    }
+    //lastname
+    if (inputLastNameRef.current.value.trim() === "") {
+      errorlnameRef.current.textContent = "Last Name is Required";
+      errorlnameRef.current.style.color = "red";
+      inputLastNameRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, lastName: true };
+      });
+    } else {
+      errorlnameRef.current.textContent = "";
+      errorlnameRef.current.style.color = "";
+      inputLastNameRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, lastName: false };
+      });
+    }
+    //Email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (inputEmailRef.current.value.trim() === "") {
+      errorEmailRef.current.textContent = "Email is Required";
+      errorEmailRef.current.style.color = "red";
+      inputEmailRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, email: true };
+      });
+    } else if (!emailRegex.test(inputEmailRef.current.value.trim())) {
+      errorEmailRef.current.textContent = "Enter the Valid Email";
+      errorEmailRef.current.style.color = "red";
+      inputEmailRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, email: true };
+      });
+    } else {
+      errorEmailRef.current.textContent = "";
+      errorEmailRef.current.style.color = "";
+      inputEmailRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, email: false };
+      });
+    }
+
+    //mobile
+    const MobileRegex = /^[6-9]{1}[0-9]{9}$/;
+    if (inputMobileRef.current.value.trim() === "") {
+      errorMobileRef.current.textContent = "Mobile is Required";
+      errorMobileRef.current.style.color = "red";
+      inputMobileRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, mobile: true };
+      });
+    } else if (!MobileRegex.test(inputMobileRef.current.value.trim())) {
+      errorMobileRef.current.textContent = "Invalid Mobile No";
+      errorMobileRef.current.style.color = "red";
+      inputMobileRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, mobile: true };
+      });
+    } else {
+      errorMobileRef.current.textContent = "";
+      errorMobileRef.current.style.color = "";
+      inputMobileRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, mobile: false };
+      });
+    }
+
+    //Password Validation
+    if (inputPasswordRef.current.value.trim() === "") {
+      errorPasswordRef.current.textContent = "Password is Required";
+      errorPasswordRef.current.style.color = "red";
+      inputPasswordRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, password: true };
+      });
+    } else {
+      errorPasswordRef.current.textContent = "";
+      errorPasswordRef.current.style.color = "";
+      inputPasswordRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, password: false };
+      });
+    }
+
+    if (checkBoxTermsRef.current.checked === false) {
+      window.alert("Please Accept the Terms and conditions");
+      return;
+    }
+
+    const MerchantRegisterData = {
+      name:
+        inputFirstNameRef.current.value.trim() +
+        " " +
+        inputLastNameRef.current.value.trim(),
+      email: inputEmailRef.current.value.trim(),
+      mobile: inputMobileRef.current.value.trim(),
+      password: inputPasswordRef.current.value.trim(),
+      role_id: "Merchant",
+    };
+
+    if (
+      !isError.firstName &&
+      !isError.lastName &&
+      !isError.mobile &&
+      !isError.email &&
+      !isError.password
+    ) {
+      userApiService.RegisterMerchant(MerchantRegisterData);
+    }
+  }
 
   return (
     <React.Fragment>
-      
-      <div className="container-fluid py-4" style={{ 
-      backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url("https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
-      backgroundSize: 'cover',
-      minHeight: '100vh',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed'
-    }}>
-      <div className="row justify-content-center">
-        <div className="col-lg-9">
-          <div className="card shadow-lg" style={{ 
-            border: 'none',
-            borderRadius: '15px',
-            backgroundColor: 'rgba(248,249,250,0.97)'
-          }}>
-            <div
-              className="card-header py-3"
-              style={{
-                background: 'linear-gradient(90deg, #e6f3ea, #f4fff8)',
-                color: '#2d572c',
-                borderRadius: '15px 15px 0 0',
-                borderBottom: '2px solid #d0e6d8',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '14px',
-                padding: '15px'
-              }}
-            >
-              <img
-                src={require('../../assets/images/AgriTradeLogo.png')}
-                alt="AgriTrade Logo"
-                style={{
-                  height: '55px',
-                  width: 'auto',
-                  objectFit: 'contain',
-                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.15))'
-                }}
-              />
-              <h2
-                className="mb-0"
-                style={{
-                  fontSize: '26px',
-                  fontWeight: '600',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: '#2d572c'
-                }}
-              >
-                <span style={{ fontSize: '1.5rem', color: '#3b7f3b' }}>📊</span>
-                Merchant Registration Form
-              </h2>
-            </div>
+      <h1> Merchant Registration</h1>
+      <form action="#" onSubmit={handleSubmit}>
+        First Name :{" "}
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          ref={inputFirstNameRef}
+        />
+        <span ref={errorFnameRef}></span>
+        <br />
+        Last Name :
+        <input
+          type="text"
+          id="last_name"
+          name="last_name"
+          ref={inputLastNameRef}
+        />{" "}
+        <span ref={errorlnameRef}></span>
+        <br />
+        Company Name :
+        <input
+          type="text"
+          id="company_name"
+          name="company_name"
+          ref={inputCompanyRef}
+        />{" "}
+        <span ref={errorCompnayRef}></span>
+        <br />
 
-            <div className="card-body p-4">
-              <form onSubmit={handleSubmit} style={{ fontSize: '12px' }}>
-                {/* Personal Details */}
-                <div className="p-3 mb-4 shadow rounded bg-white">
-                  <h5 className="text-success mb-3" style={{ fontSize: '14px' }}>
-                    <span className="me-2">👤</span>
-                    Personal Details
-                  </h5>
-                  <div className="row g-3">
-                    <div className="col-md-4">
-                      <label className="form-label">First Name*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        required
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">Middle Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="middleName"
-                        value={formData.middleName}
-                        onChange={handleChange}
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">Last Name*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        required
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">Father's Name*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="fatherName"
-                        value={formData.fatherName}
-                        onChange={handleChange}
-                        required
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                    
-                    <div className="col-md-4">
-                      <label className="form-label">Date of Birth*</label>
-                      <input
-                        type="date"
-                        className="form-control"
-                        name="dob"
-                        value={formData.dob}
-                        onChange={handleChange}
-                        required
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                  </div>
-                </div>
 
-                {/* Contact Details */}
-                <div className="p-3 mb-4 shadow rounded bg-white">
-                  <h5 className="text-success mb-3" style={{ fontSize: '14px' }}>
-                    <span className="me-2">📱</span>
-                    Contact Details
-                  </h5>
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Mobile Number*</label>
-                      <div className="input-group">
-                        <span className="input-group-text" style={{ fontSize: '12px' }}>+91</span>
-                        <input
-                          type="tel"
-                          className="form-control"
-                          name="mobile"
-                          value={formData.mobile}
-                          onChange={handleChange}
-                          pattern="[0-9]{10}"
-                          required
-                          style={{width: '250px', fontSize: '12px' }}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Email Address*</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        style={{width: '250px', fontSize: '12px' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Business Details */}
-                <div className="p-3 mb-4 shadow rounded bg-white">
-                  <h5 className="text-success mb-3" style={{ fontSize: '14px' }}>
-                    <span className="me-2">🏢</span>
-                    Business Details
-                  </h5>
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <label className="form-label">Company/Firm Name*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="companyName"
-                        value={formData.companyName}
-                        onChange={handleChange}
-                        required
-                        style={{ fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">GST Number*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="gstNumber"
-                        value={formData.gstNumber}
-                        onChange={handleChange}
-                        placeholder="22AAAAA0000A1Z5"
-                        pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
-                        required
-                        style={{ fontSize: '12px' }}
-                      />
-                      <small className="text-muted">Format: 22AAAAA0000A1Z5</small>
-                    </div>
-                    <div className="col-md-6">
-                      <label className="form-label">Business Type*</label>
-                      <select
-                        className="form-select"
-                        name="businessType"
-                        value={formData.businessType}
-                        onChange={handleChange}
-                        required
-                        style={{ fontSize: '12px' }}
-                      >
-                        <option value="wholesaler">Wholesaler</option>
-                        <option value="retailer">Retailer</option>
-                        <option value="exporter">Exporter</option>
-                        <option value="processor">Processor</option>
-                        <option value="distributor">Distributor</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Business Address */}
-                <div className="p-3 mb-4 shadow rounded bg-white">
-                  <h5 className="text-success mb-3" style={{ fontSize: '14px' }}>
-                    <span className="me-2">📍</span>
-                    Business Address
-                  </h5>
-                  <div className="row g-3">
-                    <div className="col-12">
-                      <label className="form-label">Full Address*</label>
-                      <textarea
-                        className="form-control"
-                        name="businessAddress"
-                        value={formData.businessAddress}
-                        onChange={handleChange}
-                        rows="3"
-                        required
-                        style={{ fontSize: '12px' }}
-                      ></textarea>
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">State*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="businessState"
-                        value={formData.businessState}
-                        onChange={handleChange}
-                        required
-                        style={{ fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">District*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="businessDistrict"
-                        value={formData.businessDistrict}
-                        onChange={handleChange}
-                        required
-                        style={{ fontSize: '12px' }}
-                      />
-                    </div>
-                    <div className="col-md-4">
-                      <label className="form-label">Postal Code*</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="businessPostalCode"
-                        value={formData.businessPostalCode}
-                        onChange={handleChange}
-                        pattern="[0-9]{6}"
-                        required
-                        style={{ fontSize: '12px' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Terms and Submit Button */}
-                <div className="mb-4 form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    name="agreeTerms"
-                    checked={formData.agreeTerms}
-                    onChange={handleChange}
-                    required
-                    style={{ fontSize: '12px' }}
-                  />
-                  <label className="form-check-label">
-                    I agree to the <a href="#terms" className="text-success">Terms and Conditions</a>*
-                  </label>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    className="btn w-25 py-2"
-                    style={{
-                      fontSize: '12px',
-                      background: 'linear-gradient(135deg, #155C2B, #1F7136)',
-                      color: 'white'
-                    }}
-                  >
-                    <span className="me-2"></span>
-                    Register
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div className="card-footer text-center py-3" style={{
-              background: '#f8f9fa',
-              borderRadius: '0 0 15px 15px',
-              borderTop: '1px solid rgba(0,0,0,0.1)',
-              fontSize: '12px'
-            }}>
-              <p className="mb-0">
-                <span className="me-1">📞</span>
-                Need help? Contact us at <a href="mailto:support@agrimerchant.com" className="text-success">support@agrimerchant.com</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+        Company Type : 
+        <select ref={inputCompanyTypeRef}>
+          <option value="">----select type----</option>
+          <option value="propritership"></option>
+          <option value="propritership"></option>
+          <option value="llp">llp</option>
+          <option value=" private limited">private limited</option>
+          <option value=" public"> public</option>
+        </select>
+        <span ref={errorCompanyTypeRef}></span>
+        <br />
+        Company Reg. No :{" "}
+        <input type="text" id="companyRegNo" name="Reg_no" ref={inputRegistrationNoRef} />
+        <span ref={errorRegistartionNoRef}></span>
+        <br />
+        Email :{" "}
+        <input type="email" id="email" name="email" ref={inputEmailRef} />
+        <span ref={errorEmailRef}></span>
+        <br />
+        Mobile No :{" "}
+        <input
+          type="text"
+          id="mobile"
+          name="mobile"
+          ref={inputMobileRef}
+        />{" "}
+        <span ref={errorMobileRef}></span>
+        <br />
+        Password :{" "}
+        <input
+          type="password"
+          id="password"
+          name="password"
+          ref={inputPasswordRef}
+        />{" "}
+        <span ref={errorPasswordRef}></span>
+        <br />
+        <input
+          type="checkbox"
+          name="is_checked"
+          id="is_checked"
+          ref={checkBoxTermsRef}
+        />
+        I Accept the Terms and Policies
+        <NavLink to="/terms-conditions">,Terms and conditions</NavLink>
+        <br />
+        <button type="submit" ref={btnSubmitRef}>
+          Register
+        </button>
+      </form>
     </React.Fragment>
   );
 };

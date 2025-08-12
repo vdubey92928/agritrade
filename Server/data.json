@@ -13,5 +13,38 @@
       "name": "merchant"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "id": "e8c9",
+      "name": "Suraj Yadav",
+      "email": "vd123754@gmail.com",
+      "mobile": "7706892928",
+      "password": "sdfgn",
+      "role_id": "farmer"
+    },
+    {
+      "id": "56df",
+      "name": " ",
+      "email": "",
+      "mobile": "",
+      "password": "",
+      "role_id": "farmer"
+    },
+    {
+      "id": "c941",
+      "name": "s ",
+      "email": "",
+      "mobile": "",
+      "password": "",
+      "role_id": "farmer"
+    },
+    {
+      "id": "82f9",
+      "name": "Prashant Singh",
+      "email": "prashant@gmail.com",
+      "mobile": "8776655443",
+      "password": "1234",
+      "role_id": "Merchant"
+    }
+  ]
 }
