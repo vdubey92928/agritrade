@@ -83,12 +83,12 @@ const Login = () => {
           };
           window.localStorage.setItem('session.data',JSON.stringify(session_data));
         if(data.role_id === 'Farmer'){
-          navigate("/farmer_dashboard");
+          navigate("/farmer/dashboard");
         }
         else if(data.role_id === 'Merchant'){
-          navigate("/merchant_dashboard");
+          navigate("/merchant/dashboard");
         }else{
-          navigate("/admin_dashboard");
+          navigate("/admin/dashboard");
         }
       }
       });

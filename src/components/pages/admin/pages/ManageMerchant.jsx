@@ -40,7 +40,7 @@ const ManageMerchant = () => {
                 <td>{merchant.id}</td>
                 <td>{merchant.name}</td>
                 <td>{merchant.email}</td>
-                <td>{merchant.contact || "N/A"}</td>
+                <td>{merchant.mobile || "N/A"}</td>
               </tr>
             ))}
           </tbody>

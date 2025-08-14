@@ -27,13 +27,13 @@ const MerchantDashboard = () => {
       <div style={{ width: "250px", background: "#2c3e50", color: "#fff", padding: "20px" }}>
         <h2>Merchant Panel</h2>
         <nav style={{ marginTop: "20px" }}>
-          <NavLink to="/merchant_dashboard" style={linkStyle} end>
+          <NavLink to="/merchant/dashboard" style={linkStyle} end>
             Dashboard
           </NavLink>
-          <NavLink to="/merchant_dashboard/profile" style={linkStyle}>
+          <NavLink to="/merchant/profile" style={linkStyle}>
             Profile
           </NavLink>
-          <NavLink to="/merchant_dashboard/orders" style={linkStyle}>
+          <NavLink to="/merchant/orders" style={linkStyle}>
             Orders
           </NavLink>
         </nav>

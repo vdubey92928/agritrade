@@ -40,7 +40,7 @@ const ManageFarmer = () => {
                 <td>{farmer.id}</td>
                 <td>{farmer.name}</td>
                 <td>{farmer.email}</td>
-                <td>{farmer.contact || "N/A"}</td>
+                <td>{farmer.mobile || "N/A"}</td>
               </tr>
             ))}
           </tbody>

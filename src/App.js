@@ -34,9 +34,9 @@ import ManageMerchant from "./components/pages/admin/pages/ManageMerchant";
 
 function App() {
   const location = useLocation();
-      const isFarmerDashboard = location.pathname.startsWith("/farmer_dashboard");
-      const isMerchantDashboard = location.pathname.startsWith("/merchant_dashboard");
-      const isAdminDashboard = location.pathname.startsWith("/admin_dashboard");
+      const isFarmerDashboard = location.pathname.startsWith("/farmer");
+      const isMerchantDashboard = location.pathname.startsWith("/merchant");
+      const isAdminDashboard = location.pathname.startsWith("/admin");
     return (
     <React.Fragment>
       
@@ -55,12 +55,12 @@ function App() {
         <Route path="/services" element={<Services />} />
 
        
-        <Route path="/farmer_dashboard" element={
+        <Route path="/farmer" element={
           <ProtectedRoutes endpoint={"/login"} message={"session-expired"}>
             <FarmerDashboard />
           </ProtectedRoutes>
         }>
-          <Route index element={<DashboardHome />} />
+          <Route path="dashboard" element={<DashboardHome />} />
           <Route path="profile" element={<FarmerProfile />} />
           <Route path="orders" element={<Orders />} />
           <Route path="quotation" element={<Quotations />} />
@@ -70,12 +70,12 @@ function App() {
         </Route>
 
 
-        <Route path="/merchant_dashboard" element={
+        <Route path="/merchant" element={
           <ProtectedRoutes endpoint={"/login"} message={"session-expired"}>
             <MerchantDashboard />
           </ProtectedRoutes>
         }>
-          <Route index element={<DashboardHome />} />
+          <Route path="dashboard" element={<DashboardHome />} />
           <Route path="profile" element={<MerchantProfile/>} />
           <Route path="orders" element={<Orders />} />
           
@@ -84,12 +84,12 @@ function App() {
 
 
 
-         <Route path="/admin_dashboard" element={
+         <Route path="/admin" element={
           <ProtectedRoutes endpoint={"/login"} message={"session-expired"}>
             <AdminDashboard />
           </ProtectedRoutes>
         }>
-          <Route index element={<DashboardHome />} />
+          <Route path="dashboard" element={<DashboardHome />} />
           <Route path="profile" element={<MerchantProfile/>} />
           <Route path="managefarmer" element={<ManageFarmer />} />
           <Route path="managemerchant" element={<ManageMerchant />} />

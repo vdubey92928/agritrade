@@ -27,16 +27,16 @@ const AdminDashboard = () => {
       <div style={{ width: "250px", background: "#2c3e50", color: "#fff", padding: "20px" }}>
         <h2>Admin Panel</h2>
         <nav style={{ marginTop: "20px" }}>
-          <NavLink to="/admin_dashboard" style={linkStyle} end>
+          <NavLink to="/admin/dashboard" style={linkStyle} end>
             Dashboard
           </NavLink>
-          <NavLink to="/admin_dashboard/profile" style={linkStyle}>
+          <NavLink to="/admin/profile" style={linkStyle}>
             Profile
           </NavLink>
-          <NavLink to="/admin_dashboard/managefarmer" style={linkStyle}>
+          <NavLink to="/admin/managefarmer" style={linkStyle}>
             Manage Farmer
           </NavLink>
-          <NavLink to="/admin_dashboard/managemerchant" style={linkStyle}>
+          <NavLink to="/admin/managemerchant" style={linkStyle}>
             Manage Merchant
           </NavLink>
         </nav>
