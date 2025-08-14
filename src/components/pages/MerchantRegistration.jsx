@@ -147,14 +147,15 @@ const MerchantRegistration = () => {
     }
 
     const MerchantRegisterData = {
-      name:
-        inputFirstNameRef.current.value.trim() +
-        " " +
-        inputLastNameRef.current.value.trim(),
-      email: inputEmailRef.current.value.trim(),
-      mobile: inputMobileRef.current.value.trim(),
-      password: inputPasswordRef.current.value.trim(),
+      name: inputFirstNameRef.current.value + " " +inputLastNameRef.current.value,
+      email: inputEmailRef.current.value,
+      mobile: inputMobileRef.current.value,
+      company_name : inputCompanyRef.value,
+      company_reg_name : inputRegistrationNoRef.value,
+      company_type : inputCompanyTypeRef.value,
+      password: inputPasswordRef.current.value,
       role_id: "Merchant",
+      reg_date : new Date().toISOString().split("T")[0].toString()
     };
 
     if (

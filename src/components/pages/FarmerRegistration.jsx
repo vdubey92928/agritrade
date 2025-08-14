@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from "react"; // , useRef
 import { NavLink } from "react-router-dom";
 import { userApiService } from "../../api/userApi";
+
+
+
+
 const FarmerRegistration = () => {
   const inputFirstNameRef = useRef(null);
   const inputLastNameRef = useRef(null);
@@ -148,7 +152,8 @@ const FarmerRegistration = () => {
       email: inputEmailRef.current.value.trim(),
       mobile: inputMobileRef.current.value.trim(),
       password: inputPasswordRef.current.value.trim(),
-      role_id: "farmer",
+      role_id: "Farmer",
+      reg_date : new Date().toISOString().split("T")[0].toString()
     };
 
     if (
@@ -158,7 +163,9 @@ const FarmerRegistration = () => {
       !isError.email &&
       !isError.password
     ) {
+      //  console.log(farmerRegisterData);
       userApiService.RegisterFarmer(farmerRegisterData);
+     
     }
   }
 

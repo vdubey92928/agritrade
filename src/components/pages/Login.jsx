@@ -1,83 +1,92 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import agritradeLogo from '../../assets/images/AgriTradeLogo.png';
+import { userApiService } from '../../api/userApi';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({
-    email: '',
-    password: ''
+  
+
+  const inputEmailRef = useRef(null);
+  const inputPasswordRef = useRef(null);
+
+
+  const errorEmailRef = useRef(null);
+  const errorPasswordRef = useRef(null);
+
+  const [isError,setError] = useState({
+    email:true,
+    password:true
   });
-  const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const navigate = useNavigate(null);
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!credentials.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(credentials.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!credentials.password) {
-      newErrors.password = 'Password is required';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoginError('');
-    
-    if (validateForm()) {
-      setIsLoading(true);
-      try {
-        // Replace with your actual API call
-        const response = await mockLoginApi(credentials);
-        
-        if (response.success) {
-          localStorage.setItem('agritrade_user', JSON.stringify(response.user));
-          localStorage.setItem('agritrade_token', response.token);
-          navigate('/dashboard');
-        } else {
-          setLoginError(response.message || 'Login failed. Please try again.');
-        }
-      } catch (error) {
-        setLoginError('An error occurred. Please try again later.');
-        console.error('Login error:', error);
-      } finally {
-        setIsLoading(false);
+  function handleLoginSubmit(e){
+      e.preventDefault();
+      
+      //Email
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (inputEmailRef.current.value.trim() === "") {
+        errorEmailRef.current.textContent = "Email is Required";
+        errorEmailRef.current.style.color = "red";
+        inputEmailRef.current.style.border = "2px solid red";
+        setError((prevState) => {
+          return { ...prevState, email: true };
+        });
+      } else if (!emailRegex.test(inputEmailRef.current.value.trim())) {
+        errorEmailRef.current.textContent = "Enter the Valid Email";
+        errorEmailRef.current.style.color = "red";
+        inputEmailRef.current.style.border = "2px solid red";
+        setError((prevState) => {
+          return { ...prevState, email: true };
+        });
+      } else {
+        errorEmailRef.current.textContent = "";
+        errorEmailRef.current.style.color = "";
+        inputEmailRef.current.style.border = "";
+        setError((prevState) => {
+          return { ...prevState, email: false };
+        });
       }
-    }
-  };
 
-  // Mock API function - replace with actual API call
-  const mockLoginApi = async (credentials) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    if (credentials.email === 'user@agritrade.com' && 
-        credentials.password === 'password123') {
-      return {
-        success: true,
-        user: {
-          email: credentials.email,
-          name: 'AgriTrade User'
-        },
-        token: 'mock-jwt-token'
+      //password 
+    if(inputPasswordRef.current.value.trim() === "") {
+      errorPasswordRef.current.textContent = "Password is Required";
+      errorPasswordRef.current.style.color = "red";
+      inputPasswordRef.current.style.border = "2px solid red";
+      setError((prevState) => {
+        return { ...prevState, password: true };
+      });
+    } else {
+      errorPasswordRef.current.textContent = "";
+      errorPasswordRef.current.style.color = "";
+      inputPasswordRef.current.style.border = "";
+      setError((prevState) => {
+        return { ...prevState, password: false };
+      });
+    }
+    console.log(isError);
+      if (!isError.email && !isError.password) {
+      const credentials = {
+        email: inputEmailRef.current.value.trim(),
+        password: inputPasswordRef.current.value.trim()
       };
-    }
-    return { success: false, message: 'Invalid credentials' };
-  };
 
+      userApiService.LoginFarmer(credentials, function(data) {
+        // console.log("Logged in:", data);
+        localStorage.setItem("farmerId", data.id); 
+        if(data.role_id === 'Farmer'){
+          navigate("/farmer_dashboard");
+        }
+        else if(data.role_id === 'Merchant'){
+          navigate("/merchant_dashboard");
+        }else{
+          navigate("/admin_dashboard");
+        }
+      });
+    }
+    
+  }
+  
   return (
     <React.Fragment>
     
@@ -139,39 +148,31 @@ const Login = () => {
             </div>
 
             <div className="card-body p-4">
-              <form onSubmit={handleSubmit}>
-                {loginError && (
-                  <div className="alert alert-danger" style={{ fontSize: '14px' }}>
-                    {loginError}
-                  </div>
-                )}
+              <form onSubmit={handleLoginSubmit}>
+                
 
                 <div className="mb-4">
                   <label className="form-label">Email Address*</label>
                   <input
                     type="email"
-                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                     name="email"
-                    value={credentials.email}
-                    onChange={handleChange}
+                    ref={inputEmailRef}
                     placeholder="Enter your email"
                     style={{ fontSize: '14px' }}
                   />
-                  {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                 <span ref={errorEmailRef}></span>
                 </div>
 
                 <div className="mb-4">
                   <label className="form-label">Password*</label>
                   <input
                     type="password"
-                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                     name="password"
-                    value={credentials.password}
-                    onChange={handleChange}
+                    ref={inputPasswordRef}
                     placeholder="Enter your password"
                     style={{ fontSize: '14px' }}
                   />
-                  {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+                  <span ref={errorPasswordRef}></span>
                 </div>
 
                 <div className="mb-4 d-flex justify-content-between align-items-center">
@@ -195,22 +196,13 @@ const Login = () => {
                   <button
                     type="submit"
                     className="btn py-2"
-                    disabled={isLoading}
                     style={{
                       background: 'linear-gradient(135deg, #155C2B, #1F7136)',
                       color: 'white',
                       fontSize: '16px',
                       fontWeight: '500'
                     }}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                        Logging in...
-                      </>
-                    ) : (
-                      'Login'
-                    )}
+                  >Login
                   </button>
                 </div>
               </form>
