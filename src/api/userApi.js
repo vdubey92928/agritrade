@@ -30,31 +30,35 @@ const userApiService ={
 
 
 
-    RegisterMerchant : function(merchnatFormData){
+    RegisterMerchant :function(merchantFormData) {
+    fetch(config.API_HOST_URL + '/users', {
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(merchantFormData),
+        mode: "cors",
+        method: "POST",
+    })
+    .then(function(res) {
+        if (res.ok) {  // ✅ FIXED: no ()
+            return res.json();
+        } else {
+            throw new Error(`Server returned ${res.status}`);
+        }
+    })
+    .then(function(data) {
+        if (data?.id) {
+            window.alert("Merchant registration success");
+        } else {
+            window.alert("Merchant registration failed");
+        }
+    })
+    .catch(function(error) {
+        console.error(error); // log the actual error
+        window.alert("Error in merchant registration");
+    });
+},
 
-        let api = fetch(config.API_HOST_URL+ '/users',{
-            headers:{
-                "content-type" : "application/json;charset=utf-8"
-            },
-            body:JSON.stringify(merchnatFormData),
-            mode:"cors",
-            method:"POST",
-        });
-        api.then(function(res){
-           if(res.ok()){
-             return res.json();
-           }
-        }).then(function(data){
-        //    console.log(data);
-           if(data?.id){
-            window.alert("Merchant registartion succes");
-           }
-        }).catch(function(error){
-        console.log('error');
-        window.alert("error in merchant registartion ");
-        });
-    },
-    
     LoginFarmer: function(credentials, callback) {
         fetch(
         `${config.API_HOST_URL}/users?email=${credentials.email}&password=${credentials.password}`,
@@ -73,7 +77,8 @@ const userApiService ={
         .then(data => {
         // console.log("Login response:", data);
         if (data && data.length > 0) {
-            if (callback) callback(data[0]); // pass first matching user
+            console.log(data);
+            if (callback) callback(data[0]); // pass first matching user 
         } else {
             window.alert("Invalid email or password");
         }
@@ -116,10 +121,10 @@ const userApiService ={
 
 
     export const getProductsByFarmer = async (farmerId) => {
-    const response = await fetch(`${config.API_HOST_URL}/products?farmerId=${farmerId}`);
-    if (!response.ok) throw new Error("Failed to fetch products");
-    return response.json();
-};
+        const response = await fetch(`${config.API_HOST_URL}/products?farmerId=${farmerId}`);
+        if (!response.ok) throw new Error("Failed to fetch products");
+        return response.json();
+    };
 
 // Delete product by ID
 export const deleteProduct = async (productId) => {
@@ -151,11 +156,38 @@ export const updateProductById = async (id, updatedData) => {
 
 
 //get faqrmer details
-export const getFarmerProfile = async (farmerId) => {
-  const res = await fetch(`${config.API_HOST_URL}/users/${farmerId}`);
-  if (!res.ok) throw new Error("Failed to fetch farmer profile");
+export const getUserProfile = async (Id) => {
+  const res = await fetch(`${config.API_HOST_URL}/users/${Id}`);
+  if (!res.ok) throw new Error("Failed to fetch User profile");
   return res.json();
 };
+
+
+
+// Get all farmers
+export const getAllFarmers = async () => {
+  try {
+    const res = await fetch(`${config.API_HOST_URL}/users?role_id=Farmer`);
+    if (!res.ok) throw new Error("Failed to fetch farmers");
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching farmers:", error);
+    throw error;
+  }
+};
+
+// Get all merchants
+export const getAllMerchants = async () => {
+  try {
+    const res = await fetch(`${config.API_HOST_URL}/users?role_id=Merchant`);
+    if (!res.ok) throw new Error("Failed to fetch merchants");
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching merchants:", error);
+    throw error;
+  }
+};
+
 
 
 export { userApiService };

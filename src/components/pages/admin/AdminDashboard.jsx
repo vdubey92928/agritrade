@@ -1,21 +1,9 @@
-// src/components/pages/farmer/FarmerDashboardFull.jsx
-import React, { useEffect, useState } from "react";
+// src/components/pages/merchant/MerchantDashboardCombined.jsx
+import React from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
-const FarmerDashboard = () => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
-  const [sessionData, setSessionData] = useState(null);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem("session.data");
-    if (storedData) {
-      try {
-        setSessionData(JSON.parse(storedData));
-      } catch (e) {
-        console.error("Invalid session data:", e);
-      }
-    }
-  }, []);
 
   const linkStyle = ({ isActive }) => ({
     display: "block",
@@ -37,48 +25,20 @@ const FarmerDashboard = () => {
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
       <div style={{ width: "250px", background: "#2c3e50", color: "#fff", padding: "20px" }}>
-        <h2>Farmer Panel</h2>
+        <h2>Admin Panel</h2>
         <nav style={{ marginTop: "20px" }}>
-          <NavLink to="/farmer_dashboard" style={linkStyle} end>
+          <NavLink to="/admin_dashboard" style={linkStyle} end>
             Dashboard
           </NavLink>
-          <NavLink to="/farmer_dashboard/profile" style={linkStyle}>
+          <NavLink to="/admin_dashboard/profile" style={linkStyle}>
             Profile
           </NavLink>
-          <NavLink to="/farmer_dashboard/orders" style={linkStyle}>
-            Order Management
+          <NavLink to="/admin_dashboard/managefarmer" style={linkStyle}>
+            Manage Farmer
           </NavLink>
-          <NavLink to="/farmer_dashboard/quotation" style={linkStyle}>
-            Quotations
+          <NavLink to="/admin_dashboard/managemerchant" style={linkStyle}>
+            Manage Merchant
           </NavLink>
-          <NavLink to="/farmer_dashboard/add-product" style={linkStyle}>
-            Add Product
-          </NavLink>
-          <NavLink to="/farmer_dashboard/manage-products" style={linkStyle}>
-            Manage Products
-          </NavLink>
-
-          {sessionData && (
-            <>
-              <p>{sessionData.name}</p>
-              <p>{sessionData.email}</p>
-            </>
-          )}
-
-          <button
-            onClick={handleLogout}
-            style={{
-              background: "transparent",
-              color: "#fff",
-              border: "none",
-              padding: 0,
-              marginTop: "10px",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-          >
-            Logout
-          </button>
         </nav>
       </div>
 
@@ -96,7 +56,7 @@ const FarmerDashboard = () => {
             padding: "0 20px",
           }}
         >
-          <h4>Welcome, Farmer!</h4>
+          <h4>Welcome, Admin!</h4>
           <button
             onClick={handleLogout}
             style={{
@@ -112,6 +72,7 @@ const FarmerDashboard = () => {
           </button>
         </div>
 
+        {/* Outlet for nested routes */}
         <div style={{ flex: 1, padding: "20px", background: "#f8f9fa" }}>
           <Outlet />
         </div>
@@ -120,4 +81,4 @@ const FarmerDashboard = () => {
   );
 };
 
-export default FarmerDashboard;
+export default AdminDashboard;

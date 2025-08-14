@@ -14,7 +14,6 @@
     }
   ],
   "users": [
- 
     {
       "id": "4063",
       "name": "Anurag Dubey",
@@ -32,18 +31,45 @@
       "password": "1234",
       "role_id": "Merchant",
       "reg_date": "2025-08-14"
+    },
+    {
+      "id": "aa14",
+      "name": "Manas Kumar",
+      "email": "manas@gmail.com",
+      "mobile": "8776655443",
+      "password": "1234",
+      "role_id": "Admin",
+      "reg_date": "2025-08-15"
+    },
+    {
+      "id": "f144",
+      "name": "Aryan Chauhan",
+      "email": "aryan@gmail.com",
+      "mobile": "8776655443",
+      "password": "1234",
+      "role_id": "Farmer",
+      "reg_date": "2025-08-14"
+    },
+    {
+      "id": "debb",
+      "name": "Mauli Dubey",
+      "email": "mauli@gmail.com",
+      "mobile": "8967272425",
+      "password": "1234",
+      "role_id": "Merchant",
+      "reg_date": "2025-08-14"
+    },
+    {
+      "id": "914b",
+      "name": "Manvi Gupta",
+      "email": "manvi@gmail.com",
+      "mobile": "8967272425",
+      "password": "1234",
+      "role_id": "Merchant",
+      "reg_date": "2025-08-14"
     }
   ],
   "products": [
-    {
-      "id": "f1e7",
-      "name": "indian tomato",
-      "price": "90",
-      "quantity": "1000",
-      "category": "Vegetables",
-      "description": "laal laal tamatar",
-      "FarmerId": "82f9"
-    },
     {
       "id": "064a",
       "name": "Tomato",
@@ -51,7 +77,16 @@
       "quantity": "100",
       "category": "Vegetables",
       "description": "laal laal tamatar",
-      "FarmerId": "e8c9"
+      "FarmerId": "4063"
+    },
+    {
+      "id": "064b",
+      "name": "Tomato indian",
+      "price": "100",
+      "quantity": "100",
+      "category": "Vegetables",
+      "description": "laal pella tamatar",
+      "FarmerId": "406"
     }
   ]
 }

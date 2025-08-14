@@ -3,6 +3,7 @@ import { getProductsByFarmer, deleteProduct } from "../../../../api/userApi";
 import { useNavigate } from "react-router-dom";
 
 const ManageProducts = () => {
+    
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const farmerId = localStorage.getItem("farmerId");

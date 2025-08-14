@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { getFarmerProfile } from "../../../../api/userApi";
+import { getUserProfile } from "../../../../api/userApi"; 
 
-const Profile = () => {
-  const [user, setFarmer] = useState(null);
+const MerchantProfile = () => {
+  const [user, setMerchant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Get farmerId from localStorage (assuming you store it after login)
-  const farmerId = localStorage.getItem("farmerId");
+  // Parse merchant data from localStorage
+  const merchantSession = JSON.parse(localStorage.getItem("session.data") || "null");
 
   useEffect(() => {
-    if (!farmerId) {
-      setError("No farmer ID found. Please log in again.");
+    if (!merchantSession || !merchantSession.id) {
+      setError("No merchant ID found. Please log in again.");
       setLoading(false);
       return;
     }
 
     (async () => {
       try {
-        const data = await getFarmerProfile(farmerId);
-        setFarmer(data);
+        const data = await getUserProfile(merchantSession.id);
+        setMerchant(data);
       } catch (err) {
         console.error("Error fetching profile:", err);
         setError("Failed to load profile");
@@ -27,17 +27,15 @@ const Profile = () => {
         setLoading(false);
       }
     })();
-  }, [farmerId]);
+  }, [merchantSession?.id]);
 
   if (loading) return <p>Loading profile...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="p-4">
-     
       {user && (
         <div className="profile-card">
-          <p ><strong><h2><u>{user.role_id.charAt(0).toUpperCase()}{user.role_id.slice(1)} Profile</u></h2></strong> </p>
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Phone:</strong> {user.mobile}</p>
@@ -49,4 +47,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MerchantProfile;

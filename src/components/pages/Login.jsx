@@ -74,6 +74,14 @@ const Login = () => {
       userApiService.LoginFarmer(credentials, function(data) {
         // console.log("Logged in:", data);
         localStorage.setItem("farmerId", data.id); 
+        if (data.role_id === 'Farmer' || data.role_id === 'Merchant' || data.role_id === 'Admin') {
+          const session_data = {
+            id: data.id,
+            name: data?.name,
+            email: data?.email,
+            role: data?.role_id, // store role_id here
+          };
+          window.localStorage.setItem('session.data',JSON.stringify(session_data));
         if(data.role_id === 'Farmer'){
           navigate("/farmer_dashboard");
         }
@@ -82,6 +90,7 @@ const Login = () => {
         }else{
           navigate("/admin_dashboard");
         }
+      }
       });
     }
     
@@ -148,7 +157,7 @@ const Login = () => {
             </div>
 
             <div className="card-body p-4">
-              <form onSubmit={handleLoginSubmit}>
+              <form >
                 
 
                 <div className="mb-4">
@@ -194,7 +203,8 @@ const Login = () => {
 
                 <div className="d-grid gap-2">
                   <button
-                    type="submit"
+                  onClick={handleLoginSubmit}
+                    type="button"
                     className="btn py-2"
                     style={{
                       background: 'linear-gradient(135deg, #155C2B, #1F7136)',
