@@ -109,7 +109,7 @@ const handleDelete = async (id) => {
                   <h5>{product.name}</h5>
                   <p>{product.description}</p>
                   <p>
-                    <strong>Price:</strong> ₹{product.price}
+                    <strong>Price:</strong> ₹{product.price} /quantal
                   </p>
                   <button
                         className="btn btn-primary me-2"

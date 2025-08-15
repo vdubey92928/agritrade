@@ -54,7 +54,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
+    <div className="p-4 max-w-2xl p-5 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Add Product</h2>
       <form onSubmit={handleSubmit}>
         <table className="w-full border-collapse">
@@ -69,14 +69,14 @@ const AddProduct = () => {
             <tr>
               <td className="p-2 font-medium">Price (₹) *</td>
               <td className="p-2">
-                <input ref={priceRef} type="number" className="border rounded p-2 w-full" placeholder="Enter price" required />
+                <input ref={priceRef} type="number" className="border rounded p-2 w-full" placeholder="Enter price/quintal" required />
               </td>
             </tr>
 
             <tr>
               <td className="p-2 font-medium">Quantity *</td>
               <td className="p-2">
-                <input ref={quantityRef} type="number" className="border rounded p-2 w-full" placeholder="Enter quantity" required />
+                <input ref={quantityRef} type="number" className="border rounded p-2 w-full" placeholder="quantity(unit quintal)" required />
               </td>
             </tr>
 
