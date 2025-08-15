@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllFarmers } from "../../../../../src/api/userApi";
+import { userApiService } from "../../../../api/userApi";
 import { Table, Container, Spinner, Alert } from "react-bootstrap";
 
 const ManageFarmer = () => {
@@ -8,7 +8,7 @@ const ManageFarmer = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getAllFarmers()
+    userApiService.getAllFarmers()
       .then((data) => {
         setFarmers(data);
         setLoading(false);
@@ -21,7 +21,7 @@ const ManageFarmer = () => {
 
   return (
     <Container className="mt-4">
-      <h2>Manage Farmers</h2>
+      <h2>Farmers : </h2>
       {loading && <Spinner animation="border" />}
       {error && <Alert variant="danger">{error}</Alert>}
       {!loading && farmers.length > 0 && (

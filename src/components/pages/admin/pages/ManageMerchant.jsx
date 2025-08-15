@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllMerchants } from "../../../../../src/api/userApi";
+import { userApiService } from "../../../../api/userApi";
 import { Table, Container, Spinner, Alert } from "react-bootstrap";
 
 const ManageMerchant = () => {
@@ -8,7 +8,7 @@ const ManageMerchant = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getAllMerchants()
+    userApiService.getAllMerchants()
       .then((data) => {
         setMerchants(data);
         setLoading(false);
@@ -21,7 +21,7 @@ const ManageMerchant = () => {
 
   return (
     <Container className="mt-4">
-      <h2>Manage Merchants</h2>
+      <h2>Merchants : </h2>
       {loading && <Spinner animation="border" />}
       {error && <Alert variant="danger">{error}</Alert>}
       {!loading && merchants.length > 0 && (

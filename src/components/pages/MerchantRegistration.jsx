@@ -1,6 +1,10 @@
-import React, { useState, useRef, useEffect } from "react"; // , useRef
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { userApiService } from "../../api/userApi";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
+// import "bootstrap/dist/css/bootstrap.min.css";
+
 const MerchantRegistration = () => {
   const inputFirstNameRef = useRef(null);
   const inputLastNameRef = useRef(null);
@@ -13,14 +17,13 @@ const MerchantRegistration = () => {
   const checkBoxTermsRef = useRef(null);
   const btnSubmitRef = useRef(null);
 
-  //Error
   const errorFnameRef = useRef(null);
   const errorlnameRef = useRef(null);
   const errorEmailRef = useRef(null);
   const errorCompnayRef = useRef(null);
   const errorRegistartionNoRef = useRef(null);
   const errorCompanyTypeRef = useRef(null);
-  const errorMobileRef = useRef(null);  
+  const errorMobileRef = useRef(null);
   const errorPasswordRef = useRef(null);
 
   const [isError, setError] = useState({
@@ -31,227 +34,210 @@ const MerchantRegistration = () => {
     password: true,
   });
 
-  //constructor : by default
   useEffect(() => {
     checkBoxTermsRef.current.checked = false;
     btnSubmitRef.current.disabled = false;
   }, []);
 
-  console.log("isError", isError);
-
   function handleSubmit(e) {
     e.preventDefault();
 
-    //firstname
+    // First Name
     if (inputFirstNameRef.current.value.trim() === "") {
       errorFnameRef.current.textContent = "First Name is Required";
-      errorFnameRef.current.style.color = "red";
-      inputFirstNameRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, firstName: true };
-      });
+      errorFnameRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, firstName: true }));
     } else {
       errorFnameRef.current.textContent = "";
-      errorFnameRef.current.style.color = "";
-      inputFirstNameRef.current.style.border = "";
-      setError((prevState) => {
-        return { ...prevState, firstName: false };
-      });
+      setError((prev) => ({ ...prev, firstName: false }));
     }
-    //lastname
+
+    // Last Name
     if (inputLastNameRef.current.value.trim() === "") {
       errorlnameRef.current.textContent = "Last Name is Required";
-      errorlnameRef.current.style.color = "red";
-      inputLastNameRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, lastName: true };
-      });
+      errorlnameRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, lastName: true }));
     } else {
       errorlnameRef.current.textContent = "";
-      errorlnameRef.current.style.color = "";
-      inputLastNameRef.current.style.border = "";
-      setError((prevState) => {
-        return { ...prevState, lastName: false };
-      });
+      setError((prev) => ({ ...prev, lastName: false }));
     }
-    //Email
+
+    // Email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (inputEmailRef.current.value.trim() === "") {
       errorEmailRef.current.textContent = "Email is Required";
-      errorEmailRef.current.style.color = "red";
-      inputEmailRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, email: true };
-      });
+      errorEmailRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, email: true }));
     } else if (!emailRegex.test(inputEmailRef.current.value.trim())) {
-      errorEmailRef.current.textContent = "Enter the Valid Email";
-      errorEmailRef.current.style.color = "red";
-      inputEmailRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, email: true };
-      });
+      errorEmailRef.current.textContent = "Enter a Valid Email";
+      errorEmailRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, email: true }));
     } else {
       errorEmailRef.current.textContent = "";
-      errorEmailRef.current.style.color = "";
-      inputEmailRef.current.style.border = "";
-      setError((prevState) => {
-        return { ...prevState, email: false };
-      });
+      setError((prev) => ({ ...prev, email: false }));
     }
 
-    //mobile
+    // Mobile
     const MobileRegex = /^[6-9]{1}[0-9]{9}$/;
     if (inputMobileRef.current.value.trim() === "") {
       errorMobileRef.current.textContent = "Mobile is Required";
-      errorMobileRef.current.style.color = "red";
-      inputMobileRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, mobile: true };
-      });
+      errorMobileRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, mobile: true }));
     } else if (!MobileRegex.test(inputMobileRef.current.value.trim())) {
       errorMobileRef.current.textContent = "Invalid Mobile No";
-      errorMobileRef.current.style.color = "red";
-      inputMobileRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, mobile: true };
-      });
+      errorMobileRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, mobile: true }));
     } else {
       errorMobileRef.current.textContent = "";
-      errorMobileRef.current.style.color = "";
-      inputMobileRef.current.style.border = "";
-      setError((prevState) => {
-        return { ...prevState, mobile: false };
-      });
+      setError((prev) => ({ ...prev, mobile: false }));
     }
 
-    //Password Validation
+    // Password
     if (inputPasswordRef.current.value.trim() === "") {
       errorPasswordRef.current.textContent = "Password is Required";
-      errorPasswordRef.current.style.color = "red";
-      inputPasswordRef.current.style.border = "2px solid red";
-      setError((prevState) => {
-        return { ...prevState, password: true };
-      });
+      errorPasswordRef.current.classList.add("text-danger");
+      setError((prev) => ({ ...prev, password: true }));
     } else {
       errorPasswordRef.current.textContent = "";
-      errorPasswordRef.current.style.color = "";
-      inputPasswordRef.current.style.border = "";
-      setError((prevState) => {
-        return { ...prevState, password: false };
-      });
+      setError((prev) => ({ ...prev, password: false }));
     }
 
-    if (checkBoxTermsRef.current.checked === false) {
+    if (!checkBoxTermsRef.current.checked) {
       window.alert("Please Accept the Terms and conditions");
       return;
     }
 
     const MerchantRegisterData = {
-      name: inputFirstNameRef.current.value + " " +inputLastNameRef.current.value,
+      name: inputFirstNameRef.current.value + " " + inputLastNameRef.current.value,
       email: inputEmailRef.current.value,
       mobile: inputMobileRef.current.value,
-      company_name : inputCompanyRef.value,
-      company_reg_name : inputRegistrationNoRef.value,
-      company_type : inputCompanyTypeRef.value,
+      company_name: inputCompanyRef.current.value,
+      company_reg_name: inputRegistrationNoRef.current.value,
+      company_type: inputCompanyTypeRef.current.value,
       password: inputPasswordRef.current.value,
       role_id: "Merchant",
-      reg_date : new Date().toISOString().split("T")[0].toString()
+      reg_date: new Date().toISOString().split("T")[0].toString(),
     };
 
-    if (
-      !isError.firstName &&
-      !isError.lastName &&
-      !isError.mobile &&
-      !isError.email &&
-      !isError.password
-    ) {
+    if (!isError.firstName && !isError.lastName && !isError.mobile && !isError.email && !isError.password) {
       userApiService.RegisterMerchant(MerchantRegisterData);
     }
   }
 
   return (
     <React.Fragment>
-      <h1> Merchant Registration</h1>
-      <form action="#" onSubmit={handleSubmit}>
-        First Name :{" "}
-        <input
-          type="text"
-          id="first_name"
-          name="first_name"
-          ref={inputFirstNameRef}
-        />
-        <span ref={errorFnameRef}></span>
-        <br />
-        Last Name :
-        <input
-          type="text"
-          id="last_name"
-          name="last_name"
-          ref={inputLastNameRef}
-        />{" "}
-        <span ref={errorlnameRef}></span>
-        <br />
-        Company Name :
-        <input
-          type="text"
-          id="company_name"
-          name="company_name"
-          ref={inputCompanyRef}
-        />{" "}
-        <span ref={errorCompnayRef}></span>
-        <br />
 
+    <Header/>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card shadow p-4" style={{ maxWidth: "600px", width: "100%" }}>
+        <h3 className="text-center mb-4" 
+        style={{
+                      backgroundColor: "#4CAF50",
+                      borderColor: "#4CAF50",
+                      padding: "10px 20px",
+                      fontWeight: "bold",
+        }}
+        
+        >Merchant Registration</h3>
+        <form onSubmit={handleSubmit}>
+          <table className="table table-borderless">
+            <tbody>
+              <tr>
+                <td>First Name:</td>
+                <td>
+                  <input type="text" className="form-control" ref={inputFirstNameRef} />
+                  <small ref={errorFnameRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Last Name:</td>
+                <td>
+                  <input type="text" className="form-control" ref={inputLastNameRef} />
+                  <small ref={errorlnameRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Company Name:</td>
+                <td>
+                  <input type="text" className="form-control" ref={inputCompanyRef} />
+                  <small ref={errorCompnayRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Company Type:</td>
+                <td>
+                  <select className="form-select" ref={inputCompanyTypeRef}>
+                    <option value="">----select type----</option>
+                    <option value="proprietorship">Proprietorship</option>
+                    <option value="llp">LLP</option>
+                    <option value="private limited">Private Limited</option>
+                    <option value="public">Public</option>
+                  </select>
+                  <small ref={errorCompanyTypeRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Company Reg. No:</td>
+                <td>
+                  <input type="text" className="form-control" ref={inputRegistrationNoRef} />
+                  <small ref={errorRegistartionNoRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>
+                  <input type="email" className="form-control" ref={inputEmailRef} />
+                  <small ref={errorEmailRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Mobile No:</td>
+                <td>
+                  <input type="text" className="form-control" ref={inputMobileRef} />
+                  <small ref={errorMobileRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td>Password:</td>
+                <td>
+                  <input type="password" className="form-control" ref={inputPasswordRef} />
+                  <small ref={errorPasswordRef}></small>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <div className="form-check">
+                    <input type="checkbox" className="form-check-input" ref={checkBoxTermsRef} />
+                    <label className="form-check-label">
+                      I Accept the <NavLink to="/terms-conditions">Terms and Conditions</NavLink>
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2" className="text-center">
+                  <button
+                    type="submit"
+                    className="btn btn-success"
+                    style={{
+                      backgroundColor: "#4CAF50",
+                      borderColor: "#4CAF50",
+                      padding: "10px 20px",
+                      fontWeight: "bold",
+                    }}
+                    ref={btnSubmitRef}
+                  >
+                    Register
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <Footer/>
 
-        Company Type : 
-        <select ref={inputCompanyTypeRef}>
-          <option value="">----select type----</option>
-          <option value="propritership"></option>
-          <option value="propritership"></option>
-          <option value="llp">llp</option>
-          <option value=" private limited">private limited</option>
-          <option value=" public"> public</option>
-        </select>
-        <span ref={errorCompanyTypeRef}></span>
-        <br />
-        Company Reg. No :{" "}
-        <input type="text" id="companyRegNo" name="Reg_no" ref={inputRegistrationNoRef} />
-        <span ref={errorRegistartionNoRef}></span>
-        <br />
-        Email :{" "}
-        <input type="email" id="email" name="email" ref={inputEmailRef} />
-        <span ref={errorEmailRef}></span>
-        <br />
-        Mobile No :{" "}
-        <input
-          type="text"
-          id="mobile"
-          name="mobile"
-          ref={inputMobileRef}
-        />{" "}
-        <span ref={errorMobileRef}></span>
-        <br />
-        Password :{" "}
-        <input
-          type="password"
-          id="password"
-          name="password"
-          ref={inputPasswordRef}
-        />{" "}
-        <span ref={errorPasswordRef}></span>
-        <br />
-        <input
-          type="checkbox"
-          name="is_checked"
-          id="is_checked"
-          ref={checkBoxTermsRef}
-        />
-        I Accept the Terms and Policies
-        <NavLink to="/terms-conditions">,Terms and conditions</NavLink>
-        <br />
-        <button type="submit" ref={btnSubmitRef}>
-          Register
-        </button>
-      </form>
     </React.Fragment>
   );
 };
