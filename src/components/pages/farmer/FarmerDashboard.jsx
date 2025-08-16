@@ -5,6 +5,8 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 const FarmerDashboard = () => {
   const navigate = useNavigate();
   const [sessionData, setSessionData] = useState(null);
+  const [isOpen, setIsOpen] = useState(true); // controls sidebar
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const storedData = localStorage.getItem("session.data");
@@ -15,6 +17,19 @@ const FarmerDashboard = () => {
         console.error("Invalid session data:", e);
       }
     }
+  }, []);
+
+  // handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setIsOpen(true); // always open on desktop
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const linkStyle = ({ isActive }) => ({
@@ -36,51 +51,58 @@ const FarmerDashboard = () => {
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       {/* Sidebar */}
-      <div style={{ width: "250px", background: "#2c3e50", color: "#fff", padding: "20px" }}>
-        <h2>Farmer Panel</h2>
-        <nav style={{ marginTop: "20px" }}>
-          <NavLink to="/farmer/dashboard" style={linkStyle} end>
-            Dashboard
-          </NavLink>
-          <NavLink to="/farmer/profile" style={linkStyle}>
-            Profile
-          </NavLink>
-          <NavLink to="/farmer/orders" style={linkStyle}>
-            Order Management
-          </NavLink>
-          <NavLink to="/farmer/quotation" style={linkStyle}>
-            Quotations
-          </NavLink>
-          <NavLink to="/farmer/add-product" style={linkStyle}>
-            Add Product
-          </NavLink>
-          <NavLink to="/farmer/manage-products" style={linkStyle}>
-            Manage Products
-          </NavLink>
-
-          {sessionData && (
-            <>
-              <p>{sessionData.name}</p>
-              <p>{sessionData.email}</p>
-            </>
+      {isOpen && (
+        <div
+          style={{
+            width: "250px",
+            background: "#2c3e50",
+            color: "#fff",
+            padding: "20px",
+            position: isMobile ? "absolute" : "relative",
+            height: "100%",
+            zIndex: 1000,
+          }}
+        >
+          {/* Close button only visible on mobile */}
+          {isMobile && (
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: "24px",
+                color: "#fff",
+                cursor: "pointer",
+                float: "right",
+              }}
+            >
+              ×
+            </button>
           )}
 
-          <button
-            onClick={handleLogout}
-            style={{
-              background: "transparent",
-              color: "#fff",
-              border: "none",
-              padding: 0,
-              marginTop: "10px",
-              cursor: "pointer",
-              textDecoration: "underline",
-            }}
-          >
-            Logout
-          </button>
-        </nav>
-      </div>
+          <h2>Farmer Panel</h2>
+          <nav style={{ marginTop: "20px" }}>
+            <NavLink to="/farmer/dashboard" style={linkStyle} end>
+              Dashboard
+            </NavLink>
+            <NavLink to="/farmer/profile" style={linkStyle}>
+              Profile
+            </NavLink>
+            <NavLink to="/farmer/orders" style={linkStyle}>
+              Order Management
+            </NavLink>
+            <NavLink to="/farmer/quotation" style={linkStyle}>
+              Quotations
+            </NavLink>
+            <NavLink to="/farmer/add-product" style={linkStyle}>
+              Add Product
+            </NavLink>
+            <NavLink to="/farmer/manage-products" style={linkStyle}>
+              Manage Products
+            </NavLink>
+          </nav>
+        </div>
+      )}
 
       {/* Main Content */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
@@ -96,7 +118,31 @@ const FarmerDashboard = () => {
             padding: "0 20px",
           }}
         >
-          <h4>Welcome, Farmer!</h4>
+          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            {/* Hamburger toggle (only on mobile) */}
+            {isMobile && (
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  fontSize: "24px",
+                  color: "#fff",
+                  cursor: "pointer",
+                }}
+              >
+                ☰
+              </button>
+            )}
+
+            {sessionData && (
+              <div>
+                <h4 style={{ margin: 0 }}>Welcome, {sessionData.name}</h4>
+                <small>{sessionData.email}</small>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleLogout}
             style={{

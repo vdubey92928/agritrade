@@ -29,7 +29,7 @@ export default function Home() {
           <div className="row mt-5">
             <div className="col-sm">
               <div className="col-sm feature-box">
-                <div className="icon-placeholder"><img src={require("../../assets/images/dir.png")} className="h-100 w-100 m-0 p-0" /></div>
+                <div className="icon-placeholder m-auto"><img src={require("../../assets/images/dir.png")} className=" " /></div>
                 <h5>Direct Connection</h5>
                 <p>
                   Direct connection

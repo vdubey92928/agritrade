@@ -28,7 +28,8 @@ button{
 .hero-img .img-placeholder {
   height: 250px;
   width: 100%;
-  background-color: #d9e5d1;
+  background-color: #f6f9f6;
+  
   border-radius: 12px;
 }
 
@@ -36,7 +37,7 @@ button{
 .feature-box {
   text-align: center;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #153a26;
   border-radius: 8px;
   margin: 10px 0;
 }
@@ -44,8 +45,10 @@ button{
   width: 50px;
   height: 50px;
   background: #d9e5d1;
+  border: 1px solid #153a26;
   margin: 0 auto 10px;
   border-radius: 6px;
+  
 }
 
 .how-it-works {

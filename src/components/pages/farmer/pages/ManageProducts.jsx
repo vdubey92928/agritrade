@@ -77,7 +77,7 @@ const handleDelete = async (id) => {
                     alt={product.name}
                     style={{
                       width: "150px",
-                      height: "150px",
+                      height: "210px",
                       objectFit: "cover",
                       borderRadius: "8px",
                       border: "1px solid #ddd",
@@ -116,7 +116,7 @@ const handleDelete = async (id) => {
                         onClick={() => navigate(`/farmer/edit-product/${product.id}`)}
                         >
                         Edit
-                        </button>
+                  </button>
 
 
 
@@ -125,7 +125,7 @@ const handleDelete = async (id) => {
                         onClick={() => handleDelete(product.id)}
                         >
                         Delete
-                        </button>
+                  </button>
 
                 </div>
               </div>
